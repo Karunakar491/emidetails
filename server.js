@@ -93,11 +93,12 @@ app.get('/api/user', async (req, res) => {
 
     const rows = await getSheetData();
 
-    const user = rows.slice(1).find(row => row[1] === mobile);
+    const user = rows.slice(1).find(row => String(row[1]) === String(mobile));
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log(rows.map(r => r[1]));
 
     res.json({
       username: user[0] || "",
